@@ -637,7 +637,95 @@ THREE.OrbitControls = function ( object, domElement ) {
         }
 
         scope.domElement.addEventListener( 'contextmenu', onContextMenu, false );
-    }
-    
 
-}
+        scope.domElement.addEventListener( 'mousedown', onMouseDown, false );
+        scope.domElement.addEventListener( 'wheel', onMouseWheel, false );
+
+        scope.domElement.addEventListener( 'touchstart ', onTouchStart, false );
+        scope.domElement.addEventListener( 'touchmove', onTouchMove, false );
+        scope.domElement.addEventListener( 'touchend', onTouchEnd, false );
+
+        window.addEventListener( 'keydown', onKeyDown, false );
+
+        this.update();
+    };
+
+    THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+    THREE.OrbitControls.prototype.contructor = THREE.OrbitControls;
+
+    Object.defineProperties( THREE.OrbitControls.prototype, {
+        center: {
+            get: function () {
+                console.warn( 'THREE.OrbitControls : .center has been renamed to .target' );
+                return this.target;
+            }
+        },
+        noZoom: {
+            get: function () {
+                console.warn( 'THREE.OrbitControls: .noZoom has been deprecated. Use .enableZoom instead.' );
+                return ! this.enableZoom;
+            },
+
+            set: function ( value ) {
+                console.warn( 'THREE.OrbitControls: .noZoom has been deprecated. Use .enableZoom instead.' );
+                this.enableZoom = ! value;
+            }
+        },
+
+        noRotate: {
+            get: function () {
+                console.warn( 'THREE.OrbitControls: .noRotate has been deprecated. Use .enableRotate instead.' );
+                return ! this.enableRotate;
+            },
+            set: function ( value ) {
+                console.warn( 'THREE.OrbitControls .noRotate has been deprecated. Use .enableRotate instead.' );
+                this.enableRotate = ! value;
+            }
+        },
+
+        noPan: {
+            get: function () {
+                console.warn( 'THREE.OrbitControls: .noPan has been deprecated. Use .enablePan instead.');
+                return ! this.enablePan;
+            },
+            set: function ( value ) {
+                console.warn( 'THREE.OrbitControls: .noPan has been deprecated. Use .enablePan instead.' );
+                this.enablePan = ! value;
+            }
+        },
+
+        noKeys: {
+            get: function () {
+                console.warn( 'THREE.OrbitControls: .noKeys has been deprecated. Use .enableKeys instead.' );
+                return ! this.enableKeys;
+            },
+            set: function ( value ) {
+                console.warn( 'THREE.OrbitControls: .noKeys has been deprecated. Use .enableKeys instead.' );
+                this.enableKeys = ! value;
+            }
+        },
+        staticMoving: {
+            get: function () {
+                console.warn( 'THREE.OrbitControls: .staticMoving has been deprecated. Use .enableDamping instead.' );
+                return ! this.enableDamping;
+            },
+
+            set: function ( value ) {
+                console.warn( 'THREE.OrbitControls: .staticMoving has been deprecated. Use .enableDamping instead.' );
+                this.enableDamping = ! value;
+            }
+        },
+
+        dynamicDampingFactor: {
+            get: function () {
+                console.warn( 'THREE.OrbitControls: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.' );
+                return this.dampingFactor;
+            },
+
+            set: function ( value ) {
+                console.warn( 'THREE.OrbitControls: .dynamicDampingFactor has been renamed. Use .dampingFactor instead.' );
+                this.dampingFactor = value;
+            }
+        }
+    }
+} );
